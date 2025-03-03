@@ -1,6 +1,6 @@
-function my_ssa_vhsp(f_input,diff_params)
+function my_ssa_vhps(f_input,diff_params)
 
-fprintf("\n\n-------------------------------- SSA VHSP --------------------------------\n");
+fprintf("\n\n-------------------------------- SSA vhps --------------------------------\n");
 
 show_points =300;
 N = diff_params.n;
@@ -154,7 +154,7 @@ legend('show');
 grid on;
 
 
-% VHSP 变分谐波谱乘积
+% VHPS 变分谐波谱乘积
 
 
 f_vhps = ssa_diff;
