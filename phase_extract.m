@@ -40,7 +40,25 @@ fprintf("[phase extract]: range bin num = %d \n", max_num);
 f_phase_extract = f_phase(:,max_num);
 
 % 相位解缠绕
-f_phase_unwrap = unwrap(f_phase_extract);
+% f_phase_unwrap = unwrap(f_phase_extract);
+
+%相位解包方法2: % 和unwrap效果相同
+f_phase_unwrap = f_phase_extract; % 初始化为 f_phase_extract 的值
+for i = 2:radar_params.chirp_num
+    diff = f_phase_unwrap(i) - f_phase_unwrap(i-1); % 连续值之间的相位差
+    while abs(diff) > pi
+        if diff > pi
+            f_phase_unwrap(i) = f_phase_unwrap(i) - 2*pi;
+        elseif diff < -pi
+            f_phase_unwrap(i) = f_phase_unwrap(i) + 2*pi;
+        end
+        % 更新差值以检查是否需要进一步调整
+        diff = f_phase_unwrap(i) - f_phase_unwrap(i-1);
+    end
+end
+
+
+
 
 
 % 相位差分

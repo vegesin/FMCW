@@ -5,7 +5,7 @@
 
 
 
-clear all;
+clear ;
 close all;
 
 
@@ -115,10 +115,10 @@ xlabel('频率 f/Hz'); title('0.8-6hz滤波后的差分信号 频域');
 % % TODO: ssa_vhps 奇异值分解 变分谐波谱乘积
 % ----------------------------------------------------------------
 
-% main_ssa_vhsp 
+% main_ssa_vhps 
 
-f_ssa_vhsp = f_diff_filter;
-my_ssa_vhsp(f_ssa_vhsp,diff_params);
+f_ssa_vhps = f_diff_filter;
+my_ssa_vhps(f_ssa_vhps,diff_params);
 
 % test ssa
 N = diff_params.n;
