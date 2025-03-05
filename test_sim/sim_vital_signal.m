@@ -24,12 +24,12 @@ heartbeat_signal(spike_times) = heartbeat_signal(spike_times) + 3; % Add spikes
 figure;
 subplot(2,1,1);
 plot(t,breathing_signal);
-title('Breathing Signal');
+title('ºôÎüĞÅºÅ');
 xlabel('Time (s)');
 ylabel('Amplitude');
 
 subplot(2,1,2);
 plot(t,heartbeat_signal);
-title('Heartbeat Signal');
+title('ĞÄÌøĞÅºÅ');
 xlabel('Time (s)');
 ylabel('Amplitude');
