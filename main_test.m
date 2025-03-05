@@ -76,6 +76,11 @@ diff_params.freq_lin = (0:diff_params.n - 1) * (diff_params.fs / diff_params.n);
 
 show_points = 500;
 
+% bandpass filter to extract heart and breath
+
+[f_heart_filt,f_beath_filt] = my_filter(f_diff,diff_params);
+
+
 % 0.8-6hz heartbeeat_filter
 
 f_diff_filter = heartbeat_filter(f_diff,diff_params.fs);
@@ -120,7 +125,7 @@ xlabel('频率 f/Hz'); title('0.8-6hz滤波后的差分信号 频域');
 f_ssa_vhps = f_diff_filter;
 my_ssa_vhps(f_ssa_vhps,diff_params);
 
-% test ssa
-N = diff_params.n;
-L = floor(N / 10);
-[f_components,f_ssa] = ssa(f_diff_filter,L,diff_params);
+% % test ssa
+% N = diff_params.n;
+% L = floor(N / 10);
+% [f_components,f_ssa] = ssa(f_diff_filter,L,diff_params);
