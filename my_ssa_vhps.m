@@ -7,7 +7,7 @@ N = diff_params.n;
 f_input_fft = fft(f_input);
 
 
-% SSA 奇异谱分析
+%% SSA 奇异谱分析
 % 参数设置
 L = floor(N / 10); % 轨迹矩阵的窗口长度 (一般设为信号总长度的一半)
 % L = 100;
@@ -122,7 +122,7 @@ grid on;
 % TODO: 呼吸谐波振幅因子判断
 
 
-% SSA重构频谱一阶差
+%% SSA重构频谱一阶差分
 ssa_diff = [0, diff(ssa_reconstructed)];  % 一阶后向相差分（首元素补0以对齐长度）
 
 % 计算差分信号的频谱
@@ -154,7 +154,7 @@ legend('show');
 grid on;
 
 
-% VHPS 变分谐波谱乘积
+%% VHPS 变分谐波谱乘积
 
 
 f_vhps = ssa_diff;
@@ -172,18 +172,49 @@ for i=1:length(vhps1)
 end
 
 figure(Name = 'vhps upsample');
+
 subplot(311);
 plot(diff_params.freq_lin(1:show_points),abs(vhps1(1:show_points)));
-title('vhps1 fft');
+title('原始信号频谱');
+xlabel('频率 (Hz)');
+ylabel('幅值');
+
 subplot(312);
 plot(diff_params.freq_lin(1:show_points),abs(vhps2(1:show_points)));
-title('vhps2 fft');
+title('两倍上采样');
+xlabel('频率 (Hz)');
+ylabel('幅值');
+
+
 subplot(313);
 plot(diff_params.freq_lin(1:show_points),abs(vhps3(1:show_points)));
-title('vhps3 fft');
+title('三倍上采样');
+xlabel('频率 (Hz)');
+ylabel('幅值');
 
 figure(Name = 'vhps output');   
+
 plot(diff_params.freq_lin(1:show_points),abs(vhps_output(1:show_points)));
+grid on;
+hold on;
+[~,vhps_max] = max(vhps_output);
+% text(diff_params.freq_lin(vhps_max),abs(vhps_output(vhps_max)),'+','color','r');
+% 绘制红色大十字标记
+plot(diff_params.freq_lin(vhps_max), abs(vhps_output(vhps_max)), 'r+', 'MarkerSize', 4, 'Color', 'r');
+
+% 添加文本标注
+text(diff_params.freq_lin(vhps_max) + 3, abs(vhps_output(vhps_max)), sprintf('%.2f', diff_params.freq_lin(vhps_max))...
+        , 'VerticalAlignment', 'top', 'HorizontalAlignment', 'center', 'Color', 'r', 'FontSize', 12);
+
+title('变分谐波乘积谱');
+xlabel('频率 (Hz)');
+ylabel('幅值');
+
+% [~, R_mpos] = max(R);
+% figure(1),plot(x, R, 'b')
+% grid on
+% text(x(R_mpos),R(R_mpos),'o','color','r')
+% text(x(R_mpos-100), R(R_mpos-400), ['(',num2str(x(R_mpos)),',',num2str(R(R_mpos)),')'],'color','k');
 
 
 
