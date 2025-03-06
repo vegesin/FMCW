@@ -161,17 +161,25 @@ zlabel("幅度");
 
 
 
-% % range 对 num_adc 进行fft
-% cube_fft1 = fft(cube,num_adc) ./ num_adc;
-% cube_fft1 = abs(cube_fft1);
-% cube_fft1 = cube_fft1(1:(num_adc/2) , :);
-% figure();
-% mesh(cube_fft1);
-% xlabel('chirp脉冲数');
-% ylabel('距离');
-% zlabel('幅度');
-% title('距离维FFT');
+% range 对 num_adc 进行fft
+cube_fft1 = fft(cube,num_adc) ./ num_adc;
+cube_fft1 = abs(cube_fft1);
+cube_fft1 = cube_fft1(1:(num_adc/2) , :);
+figure(Name = 'range fft')
 
+
+subplot(121);
+%surf(10*log(abs(cube_fft1)));
+mesh(cube_fft1);
+xlabel('Doppler');
+ylabel('Range');
+%zlabel('幅度');
+%title('距离维FFT');
+
+subplot(122);
+imagesc(cube_fft1)
+xlabel('Doppler')
+ylabel('Range')
 
 
 % fft2 两个维度上fft得到速度和距离信息 num_chirp --> v
