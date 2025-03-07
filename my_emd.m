@@ -1,6 +1,7 @@
 
 % 封装在子函数里面处理EMD
 
+
 function  my_emd(f_input,diff_params)
 
 fprintf("\n\n-------------------------------- EMD --------------------------------\n");
@@ -47,10 +48,51 @@ for i = 1:imf_l
     % fprintf("[my_emd] emd_imf %d corrC: %.4f\n", i, CorrC_EMD(i));
 end
 
+% 使用 plot3 绘制 EMD 分解后的分量 - 时域
+figure(Name=sprintf("EMD 三维时域"));
+
+for i = 1:imf_l
+    plot3(diff_params.time_lin,(i)*ones(size(emd_imf(:,i))),emd_imf(:,i), 'DisplayName', sprintf('IMF%d', i));
+    hold on;
+end
+
+xlabel('时间 t/s');
+ylabel('IMF 分量');
+yticks(1:imf_l + 1);
+zlabel('幅度');
+legend show;
+title('EMD 时域');
+grid on;
+hold off;
+view(3);
+
+% plot3 绘制频谱
+figure(Name = 'EMD 3D 频谱');
+
+for i = 1:imf_l
+    emd_imf_fft =  fft(emd_imf(:,i));
+    % [peak_val,peak_index] = max(abs(emd_imf_fft)); 
+    %stem(diff_params.freq_lin,abs(emd_imf_fft(1:diff_params.n)));
+    plot3(diff_params.freq_lin(1:show_points),i*ones(1,show_points),abs(emd_imf_fft(1:show_points)),'DisplayName', sprintf('IMF%d', i));
+    hold on;
+end
+xlabel('频率 f/Hz');
+ylabel('IMF 分量');
+yticks(1:imf_l + 1);
+zlabel('幅度');
+zticks([]);
+% set(gca,'xticklabel',[])
+title('EMD 频域');
+legend show;
+grid on;
+hold off;
+view(3);
+
+
 
 
 % IMF 筛选
-% TODO: 使用相关系数 计算一个可能性最大的心率
+
 
 % 呼吸频率范围 0.1-0.5Hz；心跳范围：0.8-2Hz
 

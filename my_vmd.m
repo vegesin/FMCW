@@ -31,6 +31,28 @@ for i  = 1:vmd_K
     xlabel('时间 t/s', 'HorizontalAlignment', 'right');
 end
 
+imf_l = size(vmd_u,1);
+
+% 使用 plot3 绘制 vmd 分解后的分量 - 时域
+figure(Name=sprintf("VMD 三维时域"));
+
+for i = 1:imf_l
+    plot3(diff_params.time_lin,(i)*ones(size(vmd_u(i,:))),vmd_u(i,:), 'DisplayName', sprintf('IMF%d', i));
+    hold on;
+end
+
+xlabel('时间 t/s');
+ylabel('IMF 分量');
+yticks(1:imf_l + 1);
+zlabel('幅度');
+title('VMD 时域');
+legend show;
+grid on;
+hold off;
+view(3);
+
+
+
 figure(Name="VMD 频域");
 for i  = 1:vmd_K
     
@@ -45,5 +67,28 @@ for i  = 1:vmd_K
     Predict_Matrix_VMD(i) = (peak_index-1) * (diff_params.fs / diff_params.n);
     fprintf("[my_vmd]vmd_imf %d freq: %.4f\n", i, Predict_Matrix_VMD(i));
 end
+
+
+% plot3 绘制频谱
+figure(Name = 'VMD 3D 频谱');
+
+for i = 1:imf_l
+    vmd_imf_fft =  fft(vmd_u(i,:));
+    % [peak_val,peak_index] = max(abs(vmd_imf_fft)); 
+    %stem(diff_params.freq_lin,abs(vmd_imf_fft(1:diff_params.n)));
+    plot3(diff_params.freq_lin(1:show_points),i*ones(1,show_points),abs(vmd_imf_fft(1:show_points)),'DisplayName', sprintf('IMF%d', i));
+    hold on;
+end
+xlabel('频率 f/Hz');
+ylabel('IMF 分量');
+yticks(1:imf_l + 1);
+zlabel('幅度');
+zticks([]);
+% set(gca,'xticklabel',[])
+title('VMD 频域');
+legend show;
+grid on;
+hold off;
+view(3);
 
 end
