@@ -203,7 +203,7 @@ hold on;
 plot(diff_params.freq_lin(vhps_max), abs(vhps_output(vhps_max)), 'r+', 'MarkerSize', 4, 'Color', 'r');
 
 % 添加文本标注
-text(diff_params.freq_lin(vhps_max) + 3, abs(vhps_output(vhps_max)), sprintf('%.2f', diff_params.freq_lin(vhps_max))...
+text(diff_params.freq_lin(vhps_max) + 1, abs(vhps_output(vhps_max)), sprintf('%.2f', diff_params.freq_lin(vhps_max))...
         , 'VerticalAlignment', 'top', 'HorizontalAlignment', 'center', 'Color', 'r', 'FontSize', 12);
 
 title('变分谐波乘积谱');
