@@ -6,6 +6,7 @@
 
 
 clear ;
+clc;
 close all;
 
 
@@ -96,16 +97,22 @@ plot(diff_params.freq_lin(1:show_points),abs(f_diff_filter_fft(1:show_points)));
 xlabel('频率 f/Hz'); title('0.8-6hz滤波后的差分信号 频域');
 
 
-% % 模态分解类算法总结 EMD VMD VME
-% % EMD
-% % emd_f = f_diff;
+% 模态分解类算法总结 EMD VMD VME
+% lowpass
+f_diff_lowpass = lowpass_filter(f_diff,diff_params);
+
+% EMD
+% emd_f = f_diff;
+emd_f = f_diff_lowpass;
 % emd_f = f_diff_filter;
-% my_emd(emd_f,diff_params);
+my_emd(emd_f,diff_params);
 
 
-% % VMD
+% VMD
+% vmd_f = f_diff;
+vmd_f = f_diff_lowpass;
 % vmd_f = f_diff_filter;
-% my_vmd(vmd_f,diff_params);
+my_vmd(vmd_f,diff_params);
 
 % % VME
 % % VME 这里滤波与否待定
@@ -117,13 +124,13 @@ xlabel('频率 f/Hz'); title('0.8-6hz滤波后的差分信号 频域');
 
 
 % ----------------------------------------------------------------
-% % TODO: ssa_vhps 奇异值分解 变分谐波谱乘积
+% % TODO: ssa_vhps 奇异值分解 变分谐波谱乘积 呼吸振幅因子判断
 % ----------------------------------------------------------------
 
 % main_ssa_vhps 
 
-f_ssa_vhps = f_diff_filter;
-my_ssa_vhps(f_ssa_vhps,diff_params);
+% f_ssa_vhps = f_diff_filter;
+% my_ssa_vhps(f_ssa_vhps,diff_params);
 
 % % test ssa
 % N = diff_params.n;
