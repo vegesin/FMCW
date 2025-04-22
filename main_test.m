@@ -1,11 +1,11 @@
 
 
-% |------------------------------------------------------
+% >------------------------------------------------------
 % |@Author: FunPlus007
 % |@Date: 2025-02-07
 % |@FilePath: \SSA_VHPS\main_test.m
 % |@Description:  毫米波雷达 呼吸心跳提取 毕设主程序
-% |-------------------------------------------------------
+% >-------------------------------------------------------
 
 
 
@@ -122,7 +122,7 @@ vmd_f = f_diff_lowpass;
 my_vmd(vmd_f,diff_params);
 
 % VME
-% ? VME 这里滤波与否待定
+
 % vme_f = f_diff;
 vme_f = f_diff_lowpass;
 % vme_f = f_diff_filter;
@@ -133,7 +133,7 @@ my_vme(vme_f,diff_params);
 
 
 % ----------------------------------------------------------------
-% % TODO: ssa_vhps 奇异值分解 变分谐波谱乘积 呼吸振幅因子判断
+% * SSA VHPS
 % ----------------------------------------------------------------
 
 % main_ssa_vhps 
@@ -141,7 +141,3 @@ my_vme(vme_f,diff_params);
 f_ssa_vhps = f_diff_filter;
 my_ssa_vhps(f_ssa_vhps,diff_params);
 
-% % test ssa
-% N = diff_params.n;
-% L = floor(N / 10);
-% [f_components,f_ssa] = ssa(f_diff_filter,L,diff_params);

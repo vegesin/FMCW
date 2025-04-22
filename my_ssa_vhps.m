@@ -203,12 +203,14 @@ hold on;
 plot(diff_params.freq_lin(vhps_max), abs(vhps_output(vhps_max)), 'r+', 'MarkerSize', 4, 'Color', 'r');
 
 % 添加文本标注
-text(diff_params.freq_lin(vhps_max) + 1, abs(vhps_output(vhps_max)), sprintf('%.2f', diff_params.freq_lin(vhps_max))...
+text(diff_params.freq_lin(vhps_max) + 1, abs(vhps_output(vhps_max)), sprintf('3W:%.2fHz   HR:%.0fBPM', diff_params.freq_lin(vhps_max),60*diff_params.freq_lin(vhps_max)/3)...
         , 'VerticalAlignment', 'top', 'HorizontalAlignment', 'center', 'Color', 'r', 'FontSize', 12);
 
 title('变分谐波乘积谱');
 xlabel('频率 (Hz)');
 ylabel('幅值');
+
+fprintf("[ssa_vhps]: 心跳频率 %.4fHz  心率(HR): %.4f BPM\n", diff_params.freq_lin(vhps_max)/3,60 * diff_params.freq_lin(vhps_max)/3);
 
 % [~, R_mpos] = max(R);
 % figure(1),plot(x, R, 'b')

@@ -71,20 +71,22 @@ for i = 1:radar_params.chirp_num - 1
 end 
 
 
-% image show
+% image show、
+show_points = 500;
 figure(Name = 'phase extract unwrap diff');
 subplot(311);
-plot(f_phase_extract);
+plot(f_phase_extract(1:show_points));
 title('Phase');
 
 subplot(312);
-plot(f_phase_unwrap);
+plot(f_phase_unwrap(1:show_points));
 title('Unwrap');
 
 subplot(313);
-plot(f_diff);
-xlabel('点数');
-ylabel('相位');
+plot(f_diff(1:show_points));
 title('Diff');
+% xlabel('点数');
+% ylabel('相位');
+
 
 end
