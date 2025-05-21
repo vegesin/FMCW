@@ -7,13 +7,15 @@ function [f_output] = lowpass_filter(f_input,diff_params)
         subplot(211);
         plot(diff_params.time_lin,f_output);
         title("3hz低通滤波之后的差分信号 时域");
-        xlabel('时间 t/s','HorizontalAlignment', 'right');
+        % xlabel('时间 t/s','HorizontalAlignment', 'right');
+        xlabel("时间(s)");
         
         subplot(212);
         f_output_fft = fft(f_output);
         plot(diff_params.freq_lin(1:show_points),abs(f_output_fft(1:show_points)));
         title("3hz低通滤波之后的差分信号 频域");
-        xlabel('频率 f/hz','HorizontalAlignment', 'right');
+        % xlabel('频率 f/hz','HorizontalAlignment', 'right');
+        xlabel("频率(Hz)");
 
 end
 

@@ -51,10 +51,9 @@ figure(Name = "静态杂波滤除");
 subplot(1, 2, 1);
 [X, Y] = meshgrid(radar_params.range_lin, radar_params.time_lin);
 surf(X, Y, abs(data_static_filter));  % Plot the magnitude of FFT result in 3D
-xlabel('Range (m)');
-ylabel('Time (s)');
-zlabel('Magnitude');
-title('Range FFT 3D Surface');
+xlabel('距离(m)');
+ylabel('时间(s)');
+zlabel('幅值');
 shading interp;  % Smooth the surface for better visualization
 colorbar;
 
@@ -62,9 +61,9 @@ colorbar;
 % Plot Heatmap (2D image)
 subplot(1, 2, 2);
 imagesc(radar_params.range_lin, radar_params.time_lin, abs(data_static_filter));  % Plot the magnitude of FFT result
-xlabel('Range (m)');
-ylabel('Time (s)');
-title('RTM');
+xlabel('距离(m)');
+ylabel('时间(s)');
+zlabel('幅值');
 colorbar;  % Add a colorbar for magnitude scaling
 
 

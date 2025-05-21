@@ -56,10 +56,10 @@ for i = 1:imf_l
     hold on;
 end
 
-xlabel('时间 t/s');
+xlabel('时间(s)');
 ylabel('IMF 分量');
 yticks(1:imf_l + 1);
-zlabel('幅度');
+zlabel('幅值');
 legend show;
 title('EMD 时域');
 grid on;
@@ -76,10 +76,10 @@ for i = 1:imf_l
     plot3(diff_params.freq_lin(1:show_points),i*ones(1,show_points),abs(emd_imf_fft(1:show_points)),'DisplayName', sprintf('IMF%d', i));
     hold on;
 end
-xlabel('频率 f/Hz');
+xlabel('频率(Hz)');
 ylabel('IMF 分量');
 yticks(1:imf_l + 1);
-zlabel('幅度');
+zlabel('幅值');
 zticks([]);
 % set(gca,'xticklabel',[])
 title('EMD 频域');

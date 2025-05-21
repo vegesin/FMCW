@@ -1,15 +1,10 @@
 
-
 % >------------------------------------------------------
 % |@Author: FunPlus007
 % |@Date: 2025-02-07
 % |@FilePath: \SSA_VHPS\main_test.m
 % |@Description:  毫米波雷达 呼吸心跳提取 毕设主程序
 % >-------------------------------------------------------
-
-
-
-
 
 
 clear ;
@@ -97,15 +92,15 @@ f_diff_filter_fft = fft(f_diff_filter);
 figure(Name = "滤波后的差分信号");
 subplot(211);
 plot(diff_params.time_lin,f_diff_filter);
-xlabel('时间 t/s'); title('0.8-6hz滤波后的差分信号 时域');
+xlabel('时间(s)'); title('0.8-6hz滤波后的差分信号 时域');
 
 subplot(212);
 plot(diff_params.freq_lin(1:show_points),abs(f_diff_filter_fft(1:show_points)));
-xlabel('频率 f/Hz'); title('0.8-6hz滤波后的差分信号 频域');
+xlabel('频率(Hz)'); title('0.8-6hz滤波后的差分信号 频域');
 
 
 % 模态分解类算法总结 EMD VMD VME
-% lowpass
+%  椭圆3Hz 低通滤波 lowpass
 f_diff_lowpass = lowpass_filter(f_diff,diff_params);
 
 % EMD

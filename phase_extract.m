@@ -76,17 +76,21 @@ show_points = 500;
 figure(Name = 'phase extract unwrap diff');
 subplot(311);
 plot(f_phase_extract(1:show_points));
+xlabel("时间(s)");
+ylabel('相位值(rad)');
 title('Phase');
 
 subplot(312);
 plot(f_phase_unwrap(1:show_points));
+xlabel("时间(s)");
+ylabel('相位值(rad)');
 title('Unwrap');
 
 subplot(313);
 plot(f_diff(1:show_points));
 title('Diff');
-% xlabel('点数');
-% ylabel('相位');
+xlabel("时间(s)");
+ylabel('相位值(rad)');
 
 
 end

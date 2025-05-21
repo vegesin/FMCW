@@ -24,13 +24,16 @@ function  [f_heart_filt,f_beath_filt]= my_filter(f_input,diff_params)
     figure(Name = 'band pass filter');
     show_points = 300;
     subplot(2,2,1);
-    plot(diff_params.time_lin,f_heart_filt,'r'); title('ĞÄÌøĞÅºÅ'); xlabel('t/s');
+    plot(diff_params.time_lin,f_heart_filt,'r'); 
+    title('ĞÄÌøĞÅºÅ'); 
+    xlabel('t/s');
 
 
     subplot(2,2,2);
     f_heart_filt_fft = fft(f_heart_filt);
     plot(diff_params.freq_lin(1:show_points),abs(f_heart_filt_fft(1:show_points))./ max(abs(f_heart_filt_fft)),'r'); 
-    title('ĞÄÌøĞÅºÅÆµÆ×'); xlabel('f/Hz');
+    title('ĞÄÌøĞÅºÅÆµÆ×'); 
+    xlabel('ÆµÂÊ(Hz)');
 
     subplot(2,2,3);
     plot(diff_params.time_lin,f_beath_filt); title('ºôÎüĞÅºÅ'); xlabel('t/s');
@@ -38,7 +41,8 @@ function  [f_heart_filt,f_beath_filt]= my_filter(f_input,diff_params)
     subplot(2,2,4);
     f_beath_filt_fft = fft(f_beath_filt);
     plot(diff_params.freq_lin(1:show_points),abs(f_beath_filt_fft(1:show_points))./ max(abs(f_beath_filt_fft)));
-    title('ºôÎüĞÅºÅÆµÆ×'); xlabel('f/Hz');
+    title('ºôÎüĞÅºÅÆµÆ×');
+    xlabel('ÆµÂÊ(Hz)');
 
 
 end
