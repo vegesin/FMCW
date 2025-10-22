@@ -2,7 +2,9 @@ desktop.ini
 
 data/
 
+
 .vscode/
 
 *.mat
+*.bin
 image/
