@@ -40,7 +40,25 @@ fprintf("[phase extract]: range bin num = %d \n", max_num);
 f_phase_extract = f_phase(:,max_num);
 
 % 相位解缠绕
-f_phase_unwrap = unwrap(f_phase_extract);
+% f_phase_unwrap = unwrap(f_phase_extract);
+
+%相位解包方法2: % 和unwrap效果相同
+f_phase_unwrap = f_phase_extract; % 初始化为 f_phase_extract 的值
+for i = 2:radar_params.chirp_num
+    diff = f_phase_unwrap(i) - f_phase_unwrap(i-1); % 连续值之间的相位差
+    while abs(diff) > pi
+        if diff > pi
+            f_phase_unwrap(i) = f_phase_unwrap(i) - 2*pi;
+        elseif diff < -pi
+            f_phase_unwrap(i) = f_phase_unwrap(i) + 2*pi;
+        end
+        % 更新差值以检查是否需要进一步调整
+        diff = f_phase_unwrap(i) - f_phase_unwrap(i-1);
+    end
+end
+
+
+
 
 
 % 相位差分
@@ -53,20 +71,26 @@ for i = 1:radar_params.chirp_num - 1
 end 
 
 
-% image show
+% image show、
+show_points = 500;
 figure(Name = 'phase extract unwrap diff');
 subplot(311);
-plot(f_phase_extract);
+plot(f_phase_extract(1:show_points));
+xlabel("时间(s)");
+ylabel('相位值(rad)');
 title('Phase');
 
 subplot(312);
-plot(f_phase_unwrap);
+plot(f_phase_unwrap(1:show_points));
+xlabel("时间(s)");
+ylabel('相位值(rad)');
 title('Unwrap');
 
 subplot(313);
-plot(f_diff);
-xlabel('点数');
-ylabel('相位');
+plot(f_diff(1:show_points));
 title('Diff');
+xlabel("时间(s)");
+ylabel('相位值(rad)');
+
 
 end

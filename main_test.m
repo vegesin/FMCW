@@ -1,11 +1,14 @@
-% !----------------------------------------------------------------
-% !毫米波雷达 呼吸心跳提取
-% !----------------------------------------------------------------
+
+% >------------------------------------------------------
+% |@Author: FunPlus007
+% |@Date: 2025-02-07
+% |@FilePath: \SSA_VHPS\main_test.m
+% |@Description:  毫米波雷达 呼吸心跳提取 毕设主程序
+% >-------------------------------------------------------
 
 
-
-
-clear all;
+clear ;
+clc;
 close all;
 
 
@@ -76,6 +79,11 @@ diff_params.freq_lin = (0:diff_params.n - 1) * (diff_params.fs / diff_params.n);
 
 show_points = 500;
 
+% bandpass filter to extract heart and breath
+
+[f_heart_filt,f_beath_filt] = my_filter(f_diff,diff_params);
+
+
 % 0.8-6hz heartbeeat_filter
 
 f_diff_filter = heartbeat_filter(f_diff,diff_params.fs);
@@ -84,43 +92,47 @@ f_diff_filter_fft = fft(f_diff_filter);
 figure(Name = "滤波后的差分信号");
 subplot(211);
 plot(diff_params.time_lin,f_diff_filter);
-xlabel('时间 t/s'); title('0.8-6hz滤波后的差分信号 时域');
+xlabel('时间(s)'); title('0.8-6hz滤波后的差分信号 时域');
 
 subplot(212);
 plot(diff_params.freq_lin(1:show_points),abs(f_diff_filter_fft(1:show_points)));
-xlabel('频率 f/Hz'); title('0.8-6hz滤波后的差分信号 频域');
+xlabel('频率(Hz)'); title('0.8-6hz滤波后的差分信号 频域');
 
 
-% % 模态分解类算法总结 EMD VMD VME
-% % EMD
-% % emd_f = f_diff;
+% 模态分解类算法总结 EMD VMD VME
+%  椭圆3Hz 低通滤波 lowpass
+f_diff_lowpass = lowpass_filter(f_diff,diff_params);
+
+% EMD
+% emd_f = f_diff;
+emd_f = f_diff_lowpass;
 % emd_f = f_diff_filter;
-% my_emd(emd_f,diff_params);
+my_emd(emd_f,diff_params);
 
 
-% % VMD
+% VMD
+% vmd_f = f_diff;
+vmd_f = f_diff_lowpass;
 % vmd_f = f_diff_filter;
-% my_vmd(vmd_f,diff_params);
+my_vmd(vmd_f,diff_params);
 
-% % VME
-% % VME 这里滤波与否待定
+% VME
+
 % vme_f = f_diff;
-% % vme_f = f_diff_filter;
-% my_vme(vme_f,diff_params);
+vme_f = f_diff_lowpass;
+% vme_f = f_diff_filter;
+my_vme(vme_f,diff_params);
+
 
 
 
 
 % ----------------------------------------------------------------
-% % TODO: ssa_vhps 奇异值分解 变分谐波谱乘积
+% * SSA VHPS
 % ----------------------------------------------------------------
 
-% main_ssa_vhsp 
+% main_ssa_vhps 
 
-f_ssa_vhsp = f_diff_filter;
-my_ssa_vhsp(f_ssa_vhsp,diff_params);
+f_ssa_vhps = f_diff_filter;
+my_ssa_vhps(f_ssa_vhps,diff_params);
 
-% test ssa
-N = diff_params.n;
-L = floor(N / 10);
-[f_components,f_ssa] = ssa(f_diff_filter,L,diff_params);

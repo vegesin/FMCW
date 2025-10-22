@@ -29,14 +29,14 @@ figure(Name=sprintf("VME"));
 subplot(211);
 plot(diff_params.time_lin,vme_u);
 title("VME 心跳信号时域");
-xlabel('时间 t/s','HorizontalAlignment', 'right');
+xlabel('时间(s)','HorizontalAlignment', 'right');
 % grid on ;
 
 subplot(212);
 plot(diff_params.freq_lin(1:show_points),abs(vme_u_fft(1:show_points)./ peak_val));
 title("VME 心跳信号频域");
 % grid on ;
-xlabel('频率 f/Hz','HorizontalAlignment', 'right');
+xlabel('频率(Hz)','HorizontalAlignment', 'right');
 
 vme_heart_freq = (peak_index-1) * (diff_params.fs / diff_params.n);
 fprintf("[my_vme] vme heart freq: %.4f\n",vme_heart_freq);

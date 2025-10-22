@@ -45,10 +45,10 @@ figure(Name = "Range FFT");
 subplot(1, 2, 1);
 [X, Y] = meshgrid(radar_params.range_lin, radar_params.time_lin);
 surf(X, Y, abs(data_rangefft_single));  % Plot the magnitude of FFT result in 3D
-xlabel('Range (m)');
-ylabel('Time (s)');
-zlabel('Magnitude');
-title('Range FFT 3D Surface');
+xlabel('距离(m)');
+ylabel('时间(s)');
+zlabel('幅值');
+% title('Range FFT 3D Surface');
 shading interp;  % Smooth the surface for better visualization
 colorbar;
 
@@ -56,9 +56,9 @@ colorbar;
 % Plot Heatmap (2D image)
 subplot(1, 2, 2);
 imagesc(radar_params.range_lin, radar_params.time_lin, abs(data_rangefft_single));  % Plot the magnitude of FFT result
-xlabel('Range (m)');
-ylabel('Time (s)');
-title('RTM');
+xlabel('距离(m)');
+ylabel('时间(s)');
+% title('RTM');
 colorbar;  % Add a colorbar for magnitude scaling
 
 end

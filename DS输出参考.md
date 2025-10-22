@@ -102,3 +102,45 @@ $$
 | HPS      | O(N logN)   | O(N)       |
 | VHPS     | O(N logN)   | O(N logM)  |
 | 改进VHPS | O(N/K logN) | O(N/K)     |
+
+
+
+
+
+\section{FMCW 雷达测距原理}
+
+调频连续波（FMCW, Frequency-Modulated Continuous Wave）雷达通过发射线性调频（Chirp）信号，并分析回波信号的频率变化来测量目标距离。发射信号的瞬时频率可以表示为：
+\begin{equation}
+    f_t (t) = f_c + S t
+\end{equation}
+其中：
+\begin{itemize}
+    \item $ f_c $ 是载波频率，
+    \item $ S = \frac{B}{T} $ 是调频斜率（$ B $ 为带宽，$ T $ 为调制周期）。
+\end{itemize}
+
+目标回波信号会有时间延迟 $ \tau $：
+\begin{equation}
+    \tau = \frac{2R}{c}
+\end{equation}
+
+接收信号的频率为：
+\begin{equation}
+    f_r (t) = f_c + S (t - \tau)
+\end{equation}
+
+\subsection{距离FFT计算原理}
+IF信号（拍频信号）由发射信号与接收信号混频得到：
+\begin{equation}
+    f_{\text{IF}} = f_r (t) - f_t (t) = S \tau = S \frac{2R}{c}
+\end{equation}
+
+在信号处理中，IF 信号通常使用 **快速傅里叶变换（FFT）** 计算频谱，从而得到频率 $ f_m $：
+\begin{equation}
+    f_m = S \cdot \tau = \frac{B}{T} \cdot \frac{2R}{c}
+\end{equation}
+
+最终，目标距离 $ R $ 可由以下公式计算：
+\begin{equation}
+    R = \frac{c f_m T}{2B}
+\end{equation}

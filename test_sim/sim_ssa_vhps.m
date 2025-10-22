@@ -1,6 +1,6 @@
 % TODO : 生成一个标准的信号（心跳+呼吸+高次谐波+噪声） 进行 ssa_vhps 仿真
 
-clear all;
+clear;
 close all;
 addpath(genpath('../'));
 
@@ -11,7 +11,7 @@ addpath(genpath('../'));
 % MATLAB code to generate a heartbeat signal with harmonics and noise
 
 % Sampling frequency
-fs = 2000;  % 1000 Hz sampling rate
+fs = 3000;  % sampling rate
 
 % Time vector (e.g., for 5 seconds)
 t = 0:1/fs:5-1/fs;  
@@ -23,9 +23,13 @@ a_h3 = 0.20;  % Amplitude of the 3rd harmonic (mm)
 
 f_h = 1.2;    % Fundamental frequency (Hz)
 
-theta_1 = rand()*2*pi;  % Random phase for 1st harmonic
-theta_2 = rand()*2*pi;  % Random phase for 2nd harmonic
-theta_3 = rand()*2*pi;  % Random phase for 3rd harmonic
+% theta_1 = rand()*2*pi;  % Random phase for 1st harmonic
+% theta_2 = rand()*2*pi;  % Random phase for 2nd harmonic
+% theta_3 = rand()*2*pi;  % Random phase for 3rd harmonic
+
+theta_1 = 0;  % Random phase for 1st harmonic
+theta_2 = 0;  % Random phase for 2nd harmonic   
+theta_3 = 0;  % Random phase for 3rd harmonic
 
 % Signal generation using harmonics
 x_harmonics = a_h1 * cos(2 * pi * f_h * t + theta_1) + ...
@@ -33,14 +37,14 @@ x_harmonics = a_h1 * cos(2 * pi * f_h * t + theta_1) + ...
               a_h3 * cos(2 * pi * 3 * f_h * t + theta_3);
 
 % Add Gaussian noise (SNR = 3 dB)
-snr_db = 3;  % Signal-to-Noise Ratio in dB
+snr_db = 10;  % Signal-to-Noise Ratio in dB
 x_noisy = awgn(x_harmonics, snr_db, 'measured');  % Add noise to signal
 
 % Plot the signal
 figure;
 plot(t, x_noisy);
 title('Simulated Heartbeat Signal with Harmonics and Noise');
-xlabel('Time (seconds)');
+xlabel('时间 ');
 ylabel('Amplitude (mm)');
 grid on;
 
@@ -56,6 +60,4 @@ diff_params.time_lin = linspace(1,5,diff_params.n);       % 差分信号 时间坐标轴
 diff_params.freq_lin = (0:diff_params.n - 1) * (diff_params.fs / diff_params.n);% 差分信号 频率坐标轴
 
 
-
-
-my_ssa_vhsp(x_noisy,diff_params);
+my_ssa_vhps(x_noisy,diff_params);
